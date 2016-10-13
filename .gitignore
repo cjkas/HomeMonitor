@@ -25,6 +25,7 @@ local.properties
 .gradle
 .svn
 target/*
+.settings
 local.properties
 out
 build

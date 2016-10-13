@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+	<definition name="baseLayout" template="/WEB-INF/views/layout.jsp">
+		<put-attribute name="body" value="" />
+	</definition>
+
+	<definition name="index" extends="baseLayout">
+		<put-attribute name="body" value="" />
+	</definition>
+
+	<definition name="lastProbe" extends="baseLayout">
+		<put-attribute name="body" value="/WEB-INF/views/lastProbe.jsp" />
+	</definition>
+
+	<definition name="weatherStationCharts" extends="baseLayout">
+		<put-attribute name="body"
+			value="/WEB-INF/views/weatherStationCharts.jsp" />
+	</definition>
+
+</tiles-definitions>

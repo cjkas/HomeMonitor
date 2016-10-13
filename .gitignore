@@ -24,6 +24,7 @@ local.properties
 .idea
 .gradle
 .svn
+target/*
 local.properties
 out
 build

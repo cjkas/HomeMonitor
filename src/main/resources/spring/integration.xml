@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-mqtt="http://www.springframework.org/schema/integration/mqtt"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/integration/mqtt http://www.springframework.org/schema/integration/mqtt/spring-integration-mqtt.xsd">
+
+		<bean id="clientFactory"
+				class="org.springframework.integration.mqtt.core.DefaultMqttPahoClientFactory">
+			<property name="userName" value="sensor" />
+			<property name="password" value="SEn_s0r_" />
+		</bean>
+		
+		<bean id="converter" class="org.springframework.integration.mqtt.support.DefaultPahoMessageConverter" />
+		
+		<int-mqtt:message-driven-channel-adapter id="mqttInbound"
+			client-id="web"
+			converter="converter"
+			url="tcp://192.168.0.33:1883"
+			topics="alarm/status, alarm/zone1, alarm/zone2, alarm/zone3, alarm/sabotage, alarm/battery_voltage"
+			error-channel="errors"
+			client-factory="clientFactory"
+			channel="in" />
+			
+		<int-mqtt:outbound-channel-adapter id="mqttOutbound"
+			client-id="web" 
+			converter="converter"
+			url="tcp://192.168.0.33:1883" 
+			client-factory="clientFactory" 
+			channel="out" />
+			
+	<int:channel id="in" />
+	<int:channel id="out" />
+	<int:channel id="errors" />
+	<int:service-activator input-channel="in" output-channel="out" ref="someService" method="msg" />
+</beans>
